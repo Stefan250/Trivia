@@ -1,0 +1,24 @@
+POST http://localhost:8080/api/checkAnswers
+Content-Type: application/json
+
+{
+  "answerRequests": [
+    {
+      "questionId": 1,
+      "answer": "A"
+    },
+    {
+      "questionId": 2,
+      "answer": "C"
+    },
+    {
+      "questionId": 3,
+      "answer": "True"
+    }
+  ]
+}
+
+
+###
+GET http://localhost:8080/api/questions
+Accept: application/json

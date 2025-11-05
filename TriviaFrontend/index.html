@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trivia Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Trivia Game</h1>
+
+    <div class="controls">
+      <label for="apiBase">API Base URL:</label>
+      <input id="apiBase" type="text" placeholder="http://localhost:3000" />
+      <button id="startBtn">Start Game</button>
+    </div>
+
+    <div id="status" class="status"></div>
+  <pre id="debug" class="debug" aria-live="polite"></pre>
+
+    <form id="questionsForm" class="questions" aria-live="polite"></form>
+
+    <div class="actions">
+      <button id="checkBtn" class="primary" disabled>Check Answers</button>
+      <button id="restartBtn" class="secondary" style="display:none">Restart</button>
+    </div>
+
+    <div id="score" class="score" aria-live="polite"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
