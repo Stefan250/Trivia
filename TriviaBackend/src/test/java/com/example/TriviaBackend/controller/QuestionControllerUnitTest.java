@@ -104,19 +104,19 @@ class QuestionControllerUnitTest {
                   .contentType(MediaType.APPLICATION_JSON)
                   .content(
                       """
-                      {
-                        "answerResponse": [
-                            {
-                              "questionId": 1,
-                              "result": true
-                            },
-                            {
-                              "questionId": 2,
-                              "result": false
-                            }
-                        ]
-                      }
-                      """))
+                        {
+                          "answerRequests": [
+                              {
+                                "questionId": 1,
+                                "result": true
+                              },
+                              {
+                                "questionId": 2,
+                                "result": false
+                              }
+                          ]
+                        }
+                        """))
           .andExpect(status().isOk())
           .andExpect(content().contentType(MediaType.APPLICATION_JSON))
           .andExpect(jsonPath("$.answerResponse.length()").value(2))
@@ -159,19 +159,19 @@ class QuestionControllerUnitTest {
                   .contentType(MediaType.APPLICATION_JSON)
                   .content(
                       """
-                                          {
-                                            "answerResponse": [
-                                                {
-                                                  "questionId": 1,
-                                                  "result": true
-                                                },
-                                                {
-                                                  "questionId": 2,
-                                                  "result": false
-                                                }
-                                            ]
-                                          }
-                                          """))
+                        {
+                          "answerRequests": [
+                              {
+                                "questionId": 1,
+                                "result": true
+                              },
+                              {
+                                "questionId": 2,
+                                "result": false
+                              }
+                          ]
+                        }
+                        """))
           .andExpect(status().isOk())
           .andExpect(content().contentType(MediaType.APPLICATION_JSON))
           .andExpect(jsonPath("$.answerResponse.length()").value(0));

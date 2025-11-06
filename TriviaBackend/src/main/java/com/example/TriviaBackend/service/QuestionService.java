@@ -6,17 +6,20 @@ import com.example.TriviaBackend.dto.response.AnswerResponse;
 import com.example.TriviaBackend.dto.response.CheckAnswersResponse;
 import com.example.TriviaBackend.dto.response.GetQuestionsResponse;
 import com.example.TriviaBackend.dto.response.QuestionResponse;
-import com.example.TriviaBackend.entity.*;
+import com.example.TriviaBackend.entity.QuestionEntity;
 import com.example.TriviaBackend.exception.RateLimitExceededException;
 import com.example.TriviaBackend.repository.QuestionRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuestionService {
+  private final Logger LOG = LoggerFactory.getLogger(QuestionService.class);
   private final QuestionRepository questionRepository;
   private final TriviaClient triviaClient;
 
@@ -30,6 +33,7 @@ public class QuestionService {
     try {
       List<QuestionEntity> questionEntities = triviaClient.getQuestions();
       questionRepository.saveAll(questionEntities);
+      LOG.info("Saved {} questions to the database", questionEntities.size());
       return new GetQuestionsResponse(
           questionEntities.stream()
               .map(
@@ -43,6 +47,7 @@ public class QuestionService {
                               .toList()))
               .toList());
     } catch (Exception e) {
+      LOG.error("Trivia API rate limit exceeded, throwing RateLimitExceededException");
       throw new RateLimitExceededException();
     }
   }
@@ -55,6 +60,7 @@ public class QuestionService {
                   Optional<QuestionEntity> result =
                       questionRepository.findById(answer.questionId());
                   if (result.isEmpty()) {
+                    LOG.warn("Could not find question with id {} in database", answer.questionId());
                     return null;
                   }
 
